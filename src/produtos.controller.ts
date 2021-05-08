@@ -9,42 +9,35 @@ import {
 } from '@nestjs/common';
 
 import { Produto } from './produto.model';
+import { ProdutoService } from './produtos.service';
 
 @Controller('produtos')
 export class ProdutosController {
-  produtos: Produto[] = [
-    new Produto('LIV0001', 'Dom Casmurro', 19.9),
-    new Produto('LIV0002', 'Memórias póstumas de Brás Cubas', 24.39),
-    new Produto('LIV0003', 'O cortiço', 17.99),
-    new Produto('LIV0004', 'Triste Fim de Policarpo Quaresma', 24.64),
-    new Produto('LIV0005', 'Grande Sertão: Veredas', 50.0),
-  ];
+  // O Nest automaticamente instancia um ProdutoService e passa por parâmetro:
+  constructor(private produtosService: ProdutoService) {}
 
   @Get()
   obterTodos(): Produto[] {
-    return this.produtos;
+    return this.produtosService.obterTodos();
   }
 
   @Get('/:id')
   obterUm(@Param() params): Produto {
-    return this.produtos[params.id];
+    return this.produtosService.obterUm(params.id);
   }
 
   @Post()
   criar(@Body() produto: Produto): Produto {
-    produto.id = 100;
-    this.produtos.push(produto);
-    return produto;
+    return this.produtosService.criar(produto);
   }
 
   @Put('/:id')
   alterar(@Body() produto: Produto): Produto {
-    
-    return produto;
+    return this.produtosService.alterar(produto);
   }
 
   @Delete('/:id')
   apagar(@Param() params): Produto {
-    return this.produtos.pop();
+    return this.produtosService.apagar(params.id);
   }
 }
