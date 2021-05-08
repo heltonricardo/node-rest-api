@@ -8,32 +8,43 @@ import {
   Put,
 } from '@nestjs/common';
 
+import { Produto } from './produto.model';
+
 @Controller('produtos')
 export class ProdutosController {
+  produtos: Produto[] = [
+    new Produto('LIV0001', 'Dom Casmurro', 19.9),
+    new Produto('LIV0002', 'Memórias póstumas de Brás Cubas', 24.39),
+    new Produto('LIV0003', 'O cortiço', 17.99),
+    new Produto('LIV0004', 'Triste Fim de Policarpo Quaresma', 24.64),
+    new Produto('LIV0005', 'Grande Sertão: Veredas', 50.0),
+  ];
+
   @Get()
-  obterTodos(): string {
-    return 'Lista com todos os produtos';
+  obterTodos(): Produto[] {
+    return this.produtos;
   }
 
   @Get('/:id')
-  obterUm(@Param() params): string {
-    return `Retorna os dados do produto ${params.id}`;
+  obterUm(@Param() params): Produto {
+    return this.produtos[params.id];
   }
 
   @Post()
-  criar(@Body() body): string {
-    console.log(body);
-    return 'Produto criado';
+  criar(@Body() produto: Produto): Produto {
+    produto.id = 100;
+    this.produtos.push(produto);
+    return produto;
   }
 
-  @Put()
-  alterar(@Body() body): string {
-    console.log(body);
-    return 'Produto alterado';
+  @Put('/:id')
+  alterar(@Body() produto: Produto): Produto {
+    
+    return produto;
   }
 
   @Delete('/:id')
-  apagar(@Param() params): string {
-    return `Apagar o produto com id ${params.id}`;
+  apagar(@Param() params): Produto {
+    return this.produtos.pop();
   }
 }
