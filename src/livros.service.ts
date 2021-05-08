@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { Livro } from './livro.model';
 
 /* A anotação @Injectable permite que o nest injete essa classe em outra, no
- * caso na classe ProdutosController.
+ * caso na classe livrosController.
 */
 @Injectable()
 export class LivroService {
-  produtos: Livro[] = [
+  livros: Livro[] = [
     new Livro('LIV0001', 'Dom Casmurro', 19.9),
     new Livro('LIV0002', 'Memórias póstumas de Brás Cubas', 24.39),
     new Livro('LIV0003', 'O cortiço', 17.99),
@@ -15,23 +15,23 @@ export class LivroService {
   ];
 
   obterTodos(): Livro[] {
-    return this.produtos;
+    return this.livros;
   }
 
   obterUm(id: number): Livro {
-    return this.produtos[0];
+    return this.livros[0];
   }
 
-  criar(produto: Livro): Livro {
-    this.produtos.push(produto);
-    return produto;
+  criar(livro: Livro): Livro {
+    this.livros.push(livro);
+    return livro;
   }
 
-  alterar(produto: Livro): Livro {
-    return produto;
+  alterar(livro: Livro): Livro {
+    return livro;
   }
 
   apagar(id: number): Livro {
-    return this.produtos.pop();
+    return this.livros.pop();
   }
 }

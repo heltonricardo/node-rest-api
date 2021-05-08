@@ -11,33 +11,33 @@ import {
 import { Livro } from './livro.model';
 import { LivroService } from './livros.service';
 
-@Controller('produtos')
+@Controller('livros')
 export class LivrosController {
-  // O Nest automaticamente instancia um ProdutoService e passa por parâmetro:
-  constructor(private produtosService: LivroService) {}
+  // O Nest automaticamente instancia um livroService e passa por parâmetro:
+  constructor(private livrosService: LivroService) {}
 
   @Get()
   obterTodos(): Livro[] {
-    return this.produtosService.obterTodos();
+    return this.livrosService.obterTodos();
   }
 
   @Get('/:id')
   obterUm(@Param() params): Livro {
-    return this.produtosService.obterUm(params.id);
+    return this.livrosService.obterUm(params.id);
   }
 
   @Post()
-  criar(@Body() produto: Livro): Livro {
-    return this.produtosService.criar(produto);
+  criar(@Body() livro: Livro): Livro {
+    return this.livrosService.criar(livro);
   }
 
   @Put('/:id')
-  alterar(@Body() produto: Livro): Livro {
-    return this.produtosService.alterar(produto);
+  alterar(@Body() livro: Livro): Livro {
+    return this.livrosService.alterar(livro);
   }
 
   @Delete('/:id')
   apagar(@Param() params): Livro {
-    return this.produtosService.apagar(params.id);
+    return this.livrosService.apagar(params.id);
   }
 }
