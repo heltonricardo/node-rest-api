@@ -8,36 +8,36 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { Produto } from './produto.model';
-import { ProdutoService } from './produtos.service';
+import { Livro } from './livro.model';
+import { LivroService } from './livros.service';
 
 @Controller('produtos')
-export class ProdutosController {
+export class LivrosController {
   // O Nest automaticamente instancia um ProdutoService e passa por parâmetro:
-  constructor(private produtosService: ProdutoService) {}
+  constructor(private produtosService: LivroService) {}
 
   @Get()
-  obterTodos(): Produto[] {
+  obterTodos(): Livro[] {
     return this.produtosService.obterTodos();
   }
 
   @Get('/:id')
-  obterUm(@Param() params): Produto {
+  obterUm(@Param() params): Livro {
     return this.produtosService.obterUm(params.id);
   }
 
   @Post()
-  criar(@Body() produto: Produto): Produto {
+  criar(@Body() produto: Livro): Livro {
     return this.produtosService.criar(produto);
   }
 
   @Put('/:id')
-  alterar(@Body() produto: Produto): Produto {
+  alterar(@Body() produto: Livro): Livro {
     return this.produtosService.alterar(produto);
   }
 
   @Delete('/:id')
-  apagar(@Param() params): Produto {
+  apagar(@Param() params): Livro {
     return this.produtosService.apagar(params.id);
   }
 }
