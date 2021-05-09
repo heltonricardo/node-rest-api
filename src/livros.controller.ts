@@ -9,35 +9,35 @@ import {
 } from '@nestjs/common';
 
 import { Livro } from './livro.model';
-import { LivroService } from './livros.service';
+import { LivrosService } from './livros.service';
 
 @Controller('livros')
 export class LivrosController {
   // O Nest automaticamente instancia um livroService e passa por parâmetro:
-  constructor(private livrosService: LivroService) {}
+  constructor(private livrosService: LivrosService) {}
 
   @Get()
-  obterTodos(): Livro[] {
+  async obterTodos(): Promise<Livro[]> {
     return this.livrosService.obterTodos();
   }
 
-  @Get('/:id')
-  obterUm(@Param() params): Livro {
+  @Get(':id')
+  async obterUm(@Param() params): Promise<Livro> {
     return this.livrosService.obterUm(params.id);
   }
 
   @Post()
-  criar(@Body() livro: Livro): Livro {
+  async criar(@Body() livro: Livro) {
     return this.livrosService.criar(livro);
   }
 
-  @Put('/:id')
-  alterar(@Body() livro: Livro): Livro {
+  @Put()
+  async alterar(@Body() livro: Livro): Promise<[number, Livro[]]> {
     return this.livrosService.alterar(livro);
   }
 
-  @Delete('/:id')
-  apagar(@Param() params): Livro {
+  @Delete(':id')
+  async apagar(@Param() params) {
     return this.livrosService.apagar(params.id);
   }
 }
